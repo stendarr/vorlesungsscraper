@@ -60,7 +60,7 @@ for div in soup.find_all('div', class_='newsListBox'):
     date = str(div).partition('<p>')[-1].strip().rpartition(', Gross Thomas')[0]
     eprog_dict[eprog_counter] = link
     print('['+str(eprog_counter)+']',date,'\n',link,'\n')
-    eprog_counter += 1
+    eprog_counter += 1  
     
 try:
     choice = [int(x) for x in input("Enter numbers of lectures, separated by space (e.g. 0 3 5 7)\n").split()]
@@ -91,6 +91,7 @@ for c in choice:
         with open(filename, 'wb') as f:
             f.write(urllib.request.urlopen(link).read())
         print("---downloaded file")
+        download_counter += 1
 
 
 print("\n\n")
@@ -142,6 +143,8 @@ for c in choice:
         with open(filename, 'wb') as f:
             f.write(urllib.request.urlopen(link).read())
         print("---downloaded file")
+        download_counter += 1
+        
 
-
+print(la_counter+eprog_counter,"Files Found and",download_counter,"Files downloaded")
 input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output

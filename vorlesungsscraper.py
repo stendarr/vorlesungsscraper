@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 '''
 Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
 
@@ -11,13 +14,14 @@ DisMat    |    n/a
 ----------|----------
 EProg     |     y   
 ----------|----------
-LinAlg    |     n   
+LinAlg    |     y   
 
 '''
 
 import urllib.request, urllib.parse, os, sys, http.client
 from urllib.request import Request, urlopen
 from html.parser import *
+from sys import platform
 try:
     import requests
 except:
@@ -49,7 +53,8 @@ print("\n\n")
 #Check main site for all available lectures
 print("Eprog")
 eprog_link = 'http://www.video.ethz.ch/lectures/d-infk/2017/autumn/252-0027-00L.html'
-eprog_dict = {}
+eprog_link_dict = {}
+eprog_date_dict = {}
 eprog_counter = 0
 
 request = Request(eprog_link, headers={'User-Agent' : user_agent})
@@ -58,12 +63,13 @@ soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 for div in soup.find_all('div', class_='newsListBox'):
     link = 'http://www.video.ethz.ch'+str(div).partition('\n<a href="')[-1].rpartition('"><h2>Einf')[0]
     date = str(div).partition('<p>')[-1].strip().rpartition(', Gross Thomas')[0]
-    eprog_dict[eprog_counter] = link
+    eprog_link_dict[eprog_counter] = link
+    eprog_date_dict[eprog_counter] = date
     print('['+str(eprog_counter)+']',date,'\n',link,'\n')
     eprog_counter += 1  
     
 try:
-    choice = [int(x) for x in input("Enter numbers of lectures, separated by space (e.g. 0 3 5 7)\n").split()]
+    choice = [int(x) for x in input("Enter numbers of lectures, separated by space (e.g. 0 3 5 7)\nJust press enter if you don't want to download anything\n").split()]
 except:
     print("You done fucked up")
     sys.exit()
@@ -72,14 +78,15 @@ print('')
 
 #Get video url from each site choosen
 for c in choice:
-    request = Request(eprog_dict[c], headers={'User-Agent' : user_agent})
+    request = Request(eprog_link_dict[c], headers={'User-Agent' : user_agent})
     soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
     link = soup.find('li', class_='video')
     link = link.find('a').get('href')
 
     split = urllib.parse.urlsplit(link)
-    filename = 'Vorlesungen/EProg/'+str(c)+split.path.split('/')[-1]
+    filename = 'Vorlesungen/EProg/'+str(eprog_date_dict[c])+".mp4"
+    #Let's hope everything is .mp4
 
     print('\n',link)
     
@@ -87,9 +94,14 @@ for c in choice:
         print("---skipped - already exists")
     else:
         print('The next few moments you will maybe think nothing is happening - you\'re wrong.')
-        print("---downloading file")
+        print("---downloading file (press Ctrl+C to abort)")
+        file = urllib.request.urlopen(link)
         with open(filename, 'wb') as f:
-            f.write(urllib.request.urlopen(link).read())
+            while True:
+                tmp = file.read(1024)
+                if not tmp:
+                    break
+                f.write(tmp)
         print("---downloaded file")
         download_counter += 1
 
@@ -100,7 +112,8 @@ print("\n\n")
 #Check main site for all available lectures
 print("Lineare Algebra")
 la_link = 'http://www.video.ethz.ch/lectures/d-math/2017/autumn/401-0131-00L.html'
-la_dict = {}
+la_link_dict = {}
+la_date_dict = {}
 la_counter = 0
 
 request = Request(la_link, headers={'User-Agent': user_agent})
@@ -109,13 +122,14 @@ soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 for div in soup.find_all('div', class_='newsListBox'):
     link = 'http://www.video.ethz.ch'+str(div).partition('\n<a href="')[-1].rpartition('"><h2>Lineare')[0]
     date = str(div).partition('<p>')[-1].strip().rpartition(', Imamoglu')[0]
-    la_dict[la_counter] = link
+    la_link_dict[la_counter] = link
+    la_date_dict[la_counter] = date
     print('['+str(la_counter)+']',date,'\n',link,'\n')
     la_counter += 1
 
 
 try:
-    choice = [int(x) for x in input("Enter numbers of lectures, separated by space (e.g. 0 3 5 7)\n").split()]
+    choice = [int(x) for x in input("Enter numbers of lectures, separated by space (e.g. 0 3 5 7)\nJust press enter if you don't want to download anything\n").split()]
 except:
     print("You done fucked up")
     sys.exit()
@@ -124,14 +138,15 @@ print('')
 
 #open every chosen lecture
 for c in choice:
-    request = Request(la_dict[c], headers={'User-Agent' : user_agent})
+    request = Request(la_link_dict[c], headers={'User-Agent' : user_agent})
     soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
     link = soup.find('li', class_='video')
     link = link.find('a').get('href')
 
     split = urllib.parse.urlsplit(link)
-    filename = 'Vorlesungen/LineareAlgebra/'+str(c)+split.path.split('/')[-1]
+    filename = 'Vorlesungen/LineareAlgebra/'+str(la_date_dict[c])+".mp4"
+    #Let's hope everything is .mp4
 
     print('\n',link)
 
@@ -139,12 +154,18 @@ for c in choice:
         print("---skipped - already exists")
     else:
         print('The next few moments you will maybe think nothing is happening - you\'re wrong.')
-        print("---downloading file")
+        print("---downloading file (press Ctrl+C to abort)")
+        file = urllib.request.urlopen(link)
         with open(filename, 'wb') as f:
-            f.write(urllib.request.urlopen(link).read())
+            while True:
+                tmp= file.read(1024)
+                if not tmp:
+                    break
+                f.write(tmp)
         print("---downloaded file")
         download_counter += 1
         
 
 print(la_counter+eprog_counter,"Files Found and",download_counter,"Files downloaded")
-input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
+if platform == "win32":
+    input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output

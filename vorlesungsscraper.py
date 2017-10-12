@@ -36,6 +36,8 @@ except:
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 link_counter = 0
 download_counter = 0
+link_list = []
+filename_list = []
 
 #Generate folders if nonexistent
 directories = ["Vorlesungen/EProg", "Vorlesungen/LineareAlgebra"]
@@ -104,6 +106,8 @@ for c in choice:
                 f.write(tmp)
         print("---downloaded file")
         download_counter += 1
+        link_list.append(link)
+        filename_list.append(filename)
 
 
 print("\n\n")
@@ -164,6 +168,8 @@ for c in choice:
                 f.write(tmp)
         print("---downloaded file")
         download_counter += 1
+        link_list.append(link)
+        filename_list.append(filename)
         
 
 print(la_counter+eprog_counter,"Files Found and",download_counter,"Files downloaded")

@@ -6,7 +6,7 @@ Currently only works for classes of the first semester of Computer Science BSc.
 Python3 and the `requests` and `bs4` (BeautifulSoup4) library (use `pip install requests` and `pip install bs4`).
 
 ### Where will the files be downloaded?
-In the folder `Uebungen` with the subfolders `AlgorithmenUndDatenstrukturen`, `EProg`, `LineareAlgebra` and ``DiskreteMathematik`.
+In the folder `Uebungen` with the subfolders `AlgorithmenUndDatenstrukturen`, `EProg`, `LineareAlgebra` and `DiskreteMathematik`.
 
 ### "XY doesn't work"
 Fix it yourself. Or open an issue.

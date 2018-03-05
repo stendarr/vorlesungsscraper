@@ -6,15 +6,15 @@ Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
 
 Check README.md and LICENSE before using this program.
 
-Checklist | Lectures | other
-----------|----------|--------
+Checklist | Lectures |
+----------|----------|
 DigiTech  |     y    |
-----------|----------|--------
-PP        |       |
-----------|----------|--------
-AnalysisI |       |
-----------|----------|--------
-AW        |          |  
+----------|----------|
+PP        |     y    |
+----------|----------|
+AnalysisI |     y    |
+----------|----------|
+AW        |    n/a   |  
 
 '''
 

@@ -1,12 +1,12 @@
 # vorlesungsscraper
 A script for ETH students to automatically download all their lectures.
-Currently only works for classes of the first semester of Computer Science BSc.
+Currently only works for classes of the second semester of Computer Science BSc.
 
 ### "What do I need to run this program?"
 Python3 and the `requests` and `bs4` (BeautifulSoup4) library (use `pip install requests` and `pip install bs4`).
 
 ### Where will the files be downloaded?
-In the folder `Uebungen` with the subfolders `AlgorithmenUndDatenstrukturen`, `EProg`, `LineareAlgebra` and `DiskreteMathematik`.
+In the folder `Vorlesungsaufzeichnungen` with the subfolders `PP`, `Analysis I` and `DigiTech`.
 
 ### "XY doesn't work"
 Fix it yourself. Or open an issue.

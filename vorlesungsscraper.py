@@ -26,18 +26,24 @@ try:
     import requests
 except:
     print('Installing `requests` is NOT optional, m8')
-    sys.exit(0)
+    sys.exit(1)
 try:
     from bs4 import BeautifulSoup, SoupStrainer
 except:
     print('Installing `BeautifulSoup` is NOT optional, m8')
-    sys.exit(0)
+    sys.exit(1)
+try:
+    urllib.request.urlopen('https://www.google.com')
+except urllib.error.URLError:
+    input("There is no connection - please connect to the internet and try again.")
+    sys.exit(1)
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 link_counter = 0
 download_counter = 0
 link_list = []
 filename_list = []
+
 
 #Generate folders if nonexistent
 directories = ["Vorlesungsaufzeichnungen/DigiTech", "Vorlesungsaufzeichnungen/PP", "Vorlesungsaufzeichnungen/Analysis I"]

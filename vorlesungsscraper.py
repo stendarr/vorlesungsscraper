@@ -18,7 +18,7 @@ AW        |    n/a   |
 
 '''
 
-import urllib.request, urllib.parse, os, sys, http.client, threading
+import urllib.request, urllib.parse, os, sys, http.client, threading, time
 from urllib.request import Request, urlopen
 from html.parser import *
 from sys import platform
@@ -41,7 +41,7 @@ except urllib.error.URLError:
     sys.exit(1)
 
 alles = False
-if len(sys.argv) == 2 and sys.argv[1] == "-all":
+if len(sys.argv) == 2 and sys.argv[1] == "--all":
     alles = True
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
@@ -286,6 +286,7 @@ def AN():
 
 
 if alles:
+    mt_start = time.time()
     tan = threading.Thread(target = AN)
     tpp = threading.Thread(target = PP)
     tdd = threading.Thread(target = DD)
@@ -297,6 +298,7 @@ if alles:
     tan.join()
     tpp.join()
     tdd.join()
+    print("Parallel time: ", time.time()-mt_start)
 
 else:
     AN()

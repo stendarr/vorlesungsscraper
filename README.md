@@ -8,8 +8,5 @@ Python3 and the `requests` and `bs4` (BeautifulSoup4) library (use `pip install 
 ### Where will the files be downloaded?
 In the folder `Vorlesungsaufzeichnungen` with the subfolders `PP`, `Analysis I` and `DigiTech`.
 
-### "XY doesn't work"
-Fix it yourself. Or open an issue.
-
 ### "Will you make this for my degree course?"
 If you buy me a beer, I'll strongly consider it.
